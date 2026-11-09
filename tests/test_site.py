@@ -24,10 +24,10 @@ class SiteTests(unittest.TestCase):
     def test_semantic_sections_and_one_heading(self):
         self.assertEqual(sum(t == 'h1' for t, _ in self.doc.tags), 1)
         ids = {a.get('id') for _, a in self.doc.tags}
-        for section in ['main', 'problem', 'approach', 'applications', 'vision', 'contact']:
+        for section in ['main', 'how', 'applications', 'barbados', 'contact']:
             self.assertIn(section, ids)
         self.assertIn('Making local economies', self.html)
-        self.assertIn('visible to AI.', self.html)
+        self.assertIn('visible to AI', self.html)
 
     def test_navigation_and_product_links(self):
         ids = {a.get('id') for _, a in self.doc.tags}
@@ -54,8 +54,8 @@ class SiteTests(unittest.TestCase):
 
     def test_static_accessible_and_honest(self):
         self.assertNotIn('<form', self.html)
-        self.assertIn('infrastructure direction', self.html)
-        css = (ROOT / 'styles.css').read_text()
+        self.assertIn('In beta', self.html)
+        css = self.html
         self.assertIn('prefers-reduced-motion', css)
         self.assertIn(':focus-visible', css)
         self.assertIn('@media', css)
